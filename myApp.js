@@ -3,10 +3,73 @@ const mongoose = require("mongoose");
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
+
   useUnifiedTopology: true,
 });
 
-let Person;
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error:"));
+
+const personSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  favoriteFoods: [String],
+});
+
+const Person = mongoose.model("Person", personSchema);
+
+//   kittySchema.methods.speak = function () {
+
+//   const greeting = this.name
+
+//     ? "Meow name is " + this.name
+
+//     : "I don't have a name";
+
+//   console.log(greeting);
+
+// }
+
+//   const Kitten = mongoose.model('Kitten', kittySchema)
+
+//   const silence = new Kitten({name:'Silence'})
+
+//   const fluffy = new Kitten({name:'Fluffy'})
+
+// ​
+
+//   fluffy.save((err,fluffy)=>{
+
+//     if(err) return console.error(err)
+
+//     fluffy.speak()
+
+//   })
+
+// ​
+
+//   silence.save((err,silence)=>{
+
+//     if(err) return console.error(err)
+
+//     silence.speak()
+
+//   })
+
+// ​
+
+// ​
+
+// Kitten.find({ name: /^Fluffy/ }, function (err, kittens) {
+
+//   if (err) return console.error(err);
+
+//   console.log(kittens);
+
+// });
+
+// ​
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
